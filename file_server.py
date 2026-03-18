@@ -1,4 +1,4 @@
-from file_server import run
+from resource_server import run
 
 if __name__ == '__main__':
     run()
