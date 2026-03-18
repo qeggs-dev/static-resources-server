@@ -5,8 +5,8 @@ from loguru import logger
 from typing import Callable, Awaitable
 
 app = FastAPI(
-    title = "File Server",
-    description="A simple file server",
+    title = "Static Resource Server",
+    description="A simple static resource server",
     version="1.0.0",
 )
 
