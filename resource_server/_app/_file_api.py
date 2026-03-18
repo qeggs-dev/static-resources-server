@@ -1,13 +1,13 @@
 from pathlib import Path
-from fastapi import HTTPException
-from fastapi.responses import FileResponse
+from fastapi import HTTPException, Query
+from fastapi.responses import FileResponse, PlainTextResponse
 from .._is_validate_path import validate_path
 from .._configs import GlobalConfigManager
 from ._app import app
 from loguru import logger
 
 @app.get("/{static_file:path}")
-async def get_file(static_file: str):
+async def get_file(static_file: str, text: bool = Query(False)):
     base_path =  Path(GlobalConfigManager.get_configs().base_path)
     if not validate_path(base_path, static_file):
         raise HTTPException(status_code=400, detail="Invalid path")
@@ -18,4 +18,10 @@ async def get_file(static_file: str):
     )
     if not file.exists():
         raise HTTPException(status_code=404, detail="File not found")
-    return FileResponse(base_path / static_file)
+    if text:
+        return PlainTextResponse(
+            file.read_text()
+        )
+    return FileResponse(
+        base_path / static_file
+    )
