@@ -7,4 +7,5 @@ class Configs(BaseModel):
     port: int = 8000
 
     base_path: str = "./static"
+    index_file: str = "./static/index.html"
     logger: LoggerConfig = Field(default_factory=LoggerConfig)

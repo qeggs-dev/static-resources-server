@@ -9,6 +9,11 @@ from loguru import logger
 
 @app.get("/{static_file:path}")
 async def get_file(static_file: str, text_encoding: str | None = Query(None)):
+    if not static_file:
+        return FileResponse(
+            GlobalConfigManager.get_configs().index_file,
+            media_type="text/html"
+        )
     base_path =  Path(GlobalConfigManager.get_configs().base_path)
     if not validate_path(base_path, static_file):
         raise HTTPException(status_code=400, detail="Invalid path")
