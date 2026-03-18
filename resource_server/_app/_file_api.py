@@ -1,3 +1,4 @@
+import aiofiles
 from pathlib import Path
 from fastapi import HTTPException, Query
 from fastapi.responses import FileResponse, PlainTextResponse
@@ -7,7 +8,7 @@ from ._app import app
 from loguru import logger
 
 @app.get("/{static_file:path}")
-async def get_file(static_file: str, text: bool = Query(False)):
+async def get_file(static_file: str, text_encoding: str | None = Query(None)):
     base_path =  Path(GlobalConfigManager.get_configs().base_path)
     if not validate_path(base_path, static_file):
         raise HTTPException(status_code=400, detail="Invalid path")
@@ -18,10 +19,10 @@ async def get_file(static_file: str, text: bool = Query(False)):
     )
     if not file.exists():
         raise HTTPException(status_code=404, detail="File not found")
-    if text:
-        return PlainTextResponse(
-            file.read_text()
-        )
+    if text_encoding is not None:
+        async with aiofiles.open(file, mode="r", encoding = text_encoding) as f:
+            text = await f.read()
+        return PlainTextResponse(text)
     return FileResponse(
         base_path / static_file
     )
