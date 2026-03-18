@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.requests import Request
-from fastapi.responses import Response, ORJSONResponse
+from fastapi.responses import Response, JSONResponse
 from loguru import logger
 from typing import Callable, Awaitable
 
@@ -16,9 +16,9 @@ async def http_middleware(request: Request, call_next: Callable[[Request], Await
         response = await call_next(request)
     except Exception as e:
         logger.exception(e)
-        response = ORJSONResponse(
+        response = JSONResponse(
             {
                 "message": "Internal Server Error"
-            },
+            }
         )
     return response
