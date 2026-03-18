@@ -1,0 +1,25 @@
+{
+    "title": "Static Resources Server",
+    "requirements": [
+        "fastapi",
+        "uvicorn",
+        "python-multipart",
+        "pydantic",
+        "aiofiles",
+        "loguru"
+    ],
+    "use_venv": true,
+    "venv_prompt": "venv",
+    "script_name": null,
+    "argument": null,
+    "restart": true,
+    "reselect": false,
+    "run_cmd_need_to_ask": false,
+    "ask_default_values": {},
+    "divider_line_char": "=",
+    "text_encoding": "utf-8",
+    "print_return_code": true,
+    "print_runtime": true,
+    "automatic_exit": false,
+    "allow_print": true
+}
