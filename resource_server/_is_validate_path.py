@@ -12,8 +12,6 @@ def validate_path(
     :param base_path: 基础路径
     :param new_path: 新路径
     :param embed: 是否嵌入基础路径
-    :param allow_symlinks: 是否允许符号链接
-    :param verify_original_path_exists: 是否验证原始路径是否存在
     :return: 是否合法
     """
     # 转换为Path对象以便于操作
