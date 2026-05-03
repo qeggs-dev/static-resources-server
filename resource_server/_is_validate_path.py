@@ -15,7 +15,7 @@ def validate_path(
     :return: 是否合法
     """
     # 转换为Path对象以便于操作
-    base = Path(base_path)
+    base = Path(base_path).resolve()
     new = Path(new_path)
     
     if embed:
